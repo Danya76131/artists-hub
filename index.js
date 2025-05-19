@@ -8,7 +8,7 @@ Error, nemo veniam. Officia aliquid explicabo excepturi qui delectus similique m
 Odio quod ducimus earum atque saepe voluptas reiciendis sunt? Ipsum alias omnis quia repellat quo soluta voluptates repellendus vero vitae! Sint facere labore quisquam quam sed atque ex blanditiis officiis.
 Saepe aperiam debitis ipsum laborum officia, assumenda quia consectetur corrupti, numquam totam amet suscipit possimus mollitia dicta quaerat, delectus ex necessitatibus. Debitis iure, eius dolorem laborum magni facere sit impedit.
 Quibusdam, voluptatum ut tenetur soluta fugit qui incidunt corporis. Ea, maiores est! Cumque maxime, officia consequatur nisi rem laboriosam assumenda. Voluptate reprehenderit adipisci ab magnam quo temporibus exercitationem repudiandae ut?`,G="mix",y="-",K=`<svg class="artist-backdrop-youTube-icon" width="24" height="24">
-      <use href="/img/sprite.svg#icon-youtube"></use>
+      <use href="img/sprite.svg#icon-youtube"></use>
     </svg>`,Q="No albums found",u={artistsListEl:document.querySelector(".js-artists-list"),artistsLoaderEl:document.querySelector(".artist-loader.loader"),artistsLoadMoreBtnEl:document.querySelector(".js-load-more-btn"),artistModalEl:document.querySelector(".js-artist-modal")};document.addEventListener("DOMContentLoaded",J);u.artistsLoadMoreBtnEl.addEventListener("click",W);u.artistsListEl.addEventListener("click",z);document.addEventListener("keydown",ot);u.artistModalEl.addEventListener("click",nt);async function J(){D();try{const t=await N();if(!t){h("Network error. Please check your internet connection.");return}const{artists:e,totalArtists:i}=t;O(e),k.setTotal(i)}catch(t){console.log(t.message),h("Something went wrong")}finally{T()}}async function W(){D(),X();try{if(!k.isArtistLeft()){h("No more artists"),T();return}k.setNewPage();const t=k.getPage(),e=await N(t);if(!e){h("Network error. Please check your internet connection.");return}O(e.artists)}catch(t){console.log(t),h("Something went wrong")}finally{T(),Z()}}async function z(t){const e=t.target.closest(".js-learn-more-btn");if(!(t.target.nodeName!=="BUTTON"||!e)){at(),e.disabled=!0,e.classList.add("is-disabled");try{const i=t.target.closest(".artists-list-item").id,r=t.target.closest(".artists-list-item").children[1].outerText.split(`
 `),s=await Y(i);if(!s){C(),h("Network error. Please check your internet connection.");return}rt(),ct(s,r)}catch(i){console.log(i.message)}finally{e.classList.remove("is-disabled"),e.disabled=!1}}}function h(t){u.artistsListEl.innerHTML=`<li class="error-msg">${t}</li>`}function X(){u.artistsLoadMoreBtnEl.disabled=!0,u.artistsLoadMoreBtnEl.classList.add("is-disabled")}function Z(){u.artistsLoadMoreBtnEl.classList.remove("is-disabled"),u.artistsLoadMoreBtnEl.disabled=!1}function O(t=[]){!t||t.length===0||u.artistsListEl.insertAdjacentHTML("beforeend",tt(t))}function tt(t=[]){return t.map(et).join("")}function et(t={}){const{genres:e=[],strArtist:i,strArtistThumb:r,strBiographyEN:s,_id:o}=t,m=st(r,i),v=P(e);return`<li class="artists-list-item" id=${o}>
   <div class="artist-item-img-wrapper">${m}</div>
@@ -25,7 +25,7 @@ Quibusdam, voluptatum ut tenetur soluta fugit qui incidunt corporis. Ea, maiores
             >
               Learn More
               <svg class="learn-more-svg" width="8" height="15">
-                <use href="./sprite.svg#icon-learn-more"></use>
+                <use href="img/sprite.svg#icon-learn-more"></use>
               </svg>
             </button>
           </li>
@@ -37,7 +37,7 @@ Quibusdam, voluptatum ut tenetur soluta fugit qui incidunt corporis. Ea, maiores
   <div class="artist-modal-container">
   <button type="button" class="artist-modal-backdrop-close-btn">
     <svg class="artist-backdrop-close-icon" width="32" height="32">
-      <use href="./sprite.svg#icon-x-close"></use>
+      <use href="img/sprite.svg#icon-x-close"></use>
     </svg>
   </button>
   <p class="artist-modal-title">${r||"Artist"}</p>

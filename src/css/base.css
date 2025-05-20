@@ -1,10 +1,12 @@
-html{
+html {
   scroll-behavior: smooth;
 }
 
 body {
   color: var(--color-scheme-1-text);
-  background: var(--color-scheme-1-background); 
+  background: var(--color-scheme-1-background);
+  font-family: var(--font-family), var(--second-family),
+    var(--third-family);
   min-width: 100%;
   min-height: 100%;
   margin: 0 auto;
@@ -14,6 +16,7 @@ body {
 main {
   flex-grow: 1;
 }
+
 main:has(.back-link) {
   text-align: center;
 }

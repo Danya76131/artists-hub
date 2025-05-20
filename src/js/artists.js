@@ -33,16 +33,7 @@ async function getArtistById(id = '') {
 
 // === main ===
 
-const NO_BIO = `Lorem ipsum dolor sit amet consectetur adipisicing elit. At, nemo aperiam? Possimus quibusdam velit molestias minus minima illo corporis labore aut recusandae facilis, sapiente repellendus ad voluptatum voluptatibus ducimus ipsa?
-Sunt provident, eveniet architecto quaerat fugiat commodi id aut ad tempore nobis pariatur vitae recusandae dolore beatae incidunt consequuntur ipsam numquam, autem maxime. Asperiores quisquam omnis quae autem impedit nostrum.
-Necessitatibus sint animi, harum quia nostrum magnam dolores quasi deleniti molestias omnis nesciunt aperiam neque natus impedit iure aliquam itaque, sed delectus obcaecati quo commodi voluptatum. Sed, necessitatibus. Maiores, qui?
-Ab nobis vitae quaerat corrupti? Ullam, vitae nesciunt! Voluptatum asperiores ad, modi recusandae dolore iusto vero vitae sunt impedit minus eaque quaerat magnam cumque. Dicta inventore veniam dolore iusto sunt?
-Autem porro possimus, repellat qui quidem architecto incidunt, suscipit libero numquam quisquam sequi totam nesciunt sapiente nulla quia iste neque esse laboriosam nihil est. Architecto, odit excepturi. Aliquid, amet ipsa!
-Quo quaerat enim quibusdam, dolor accusantium aliquid hic corrupti, nesciunt beatae sequi, libero iste facere culpa nulla officia sapiente ab necessitatibus tempora! Rerum quaerat molestiae dolore molestias debitis libero modi.
-Error, nemo veniam. Officia aliquid explicabo excepturi qui delectus similique magni dolore unde veniam pariatur magnam rem perferendis debitis nesciunt, nihil nostrum at ex cupiditate quos maiores vero repellat ab!
-Odio quod ducimus earum atque saepe voluptas reiciendis sunt? Ipsum alias omnis quia repellat quo soluta voluptates repellendus vero vitae! Sint facere labore quisquam quam sed atque ex blanditiis officiis.
-Saepe aperiam debitis ipsum laborum officia, assumenda quia consectetur corrupti, numquam totam amet suscipit possimus mollitia dicta quaerat, delectus ex necessitatibus. Debitis iure, eius dolorem laborum magni facere sit impedit.
-Quibusdam, voluptatum ut tenetur soluta fugit qui incidunt corporis. Ea, maiores est! Cumque maxime, officia consequatur nisi rem laboriosam assumenda. Voluptate reprehenderit adipisci ab magnam quo temporibus exercitationem repudiandae ut?`;
+const NO_BIO = `Sorry there is no information about biography`;
 const NO_GENRES = `mix`;
 const NO_INFO = '-';
 const You_Tube_Btn = `<svg class="artist-backdrop-youTube-icon" width="24" height="24">
@@ -87,18 +78,18 @@ async function handlePageFirstArtistsLoad() {
 async function handleLoadMoreArtistBtn() {
   showArtistLoader();
   lockLoadMoreBtn();
+
   try {
+    paginator.setNewPage();
+    const newPage = paginator.getPage();
     if (!paginator.isArtistLeft()) {
       showErrorMessage('No more artists');
       hideArtistLoader();
+      hideLoadMoreBtn();
       return;
     }
 
-    paginator.setNewPage();
-    const newPage = paginator.getPage();
-
     const response = await getArtistsData(newPage);
-
     if (!response) {
       showErrorMessage('Network error. Please check your internet connection.');
       return;
@@ -163,6 +154,10 @@ function unlockLoadMoreBtn() {
   refs.artistsLoadMoreBtnEl.disabled = false;
 }
 
+function hideLoadMoreBtn() {
+  refs.artistsLoadMoreBtnEl.style.display = 'none';
+}
+
 // === artist list markup ===
 
 function renderArtistList(array = []) {
@@ -186,10 +181,8 @@ function createArtistMarkup(obj = {}) {
             <ul class="artist-item-tags-list">
             ${genresMarkup}
             </ul>
-            <ul class="artist-item-info-list">
-              <li class="artist-info-name">${strArtist}</li>
-              <li class="artist-info-bio">${strBiographyEN || NO_BIO}</li>
-            </ul>
+            <div class="artist-bio-wrapper"><h3 class="artist-info-name">${strArtist}</h3>
+              <p class="artist-info-bio">${strBiographyEN || NO_BIO}</p></div>
             <button
               type="button"
               class="artists-learn-more-btn js-learn-more-btn"
@@ -389,12 +382,10 @@ function createSingleArtistMarkup(obj = {}, array = []) {
           <p>${strCountry || NO_INFO}</p>
         </li>
       </ul>
-      <ul class="art-mod-biography">
-        <li class="art-mod-bio">
+      <h3 class="art-mod-biography">
           Biography
           <p class="bio-text">${strBiographyEN || NO_BIO}</p>
-        </li>
-      </ul>
+      </h3>
       <ul class="artist-item-tags-list">${genresMarkup}</ul>
       </div>
     </div>

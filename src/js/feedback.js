@@ -1,9 +1,11 @@
 import Swiper from 'swiper';
-  import 'swiper/css';
-  import 'swiper/css/navigation';
-  import { Navigation } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { Navigation } from 'swiper/modules';
+import iziToast from 'izitoast';
+import axios from 'axios';
 
-  // console.log('feedback block:', document.querySelector('.feedback'));
+// console.log('feedback block:', document.querySelector('.feedback'));
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM is ready');
@@ -12,8 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     console.warn('Feedback section отсутствует на этой странице');
     return;
   }
-
-  
 
   // лоадер
   function showLoader() {
@@ -50,18 +50,15 @@ document.addEventListener('DOMContentLoaded', () => {
     return stars.join('');
   }
 
-
-
-
   async function fetchFeedback() {
     showLoader();
     try {
-      const res = await fetch('https://sound-wave.b.goit.study/api/feedbacks');
-      if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
-      const { data } = await res.json();
-      return data;
+      const res = await axios.get(
+        'https://sound-wave.b.goit.study/api/feedbacks'
+      );
+      return res.data.data;
     } catch (error) {
-      console.error('Error fetching feedbacks:', error);
+      console.error(error.message);
       return [];
     } finally {
       hideLoader();
@@ -72,8 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const feedbacks = await fetchFeedback();
     const swiperWrapper = document.querySelector('.swiper-wrapper');
     const paginationContainer = document.querySelector('.custom-pagination');
-  
-  
+
     swiperWrapper.innerHTML = '';
     paginationContainer.innerHTML = '';
 
@@ -102,7 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
       slidesPerView: 1,
       spaceBetween: 0,
       on: {
-        slideChange: () => updatePagination(swiper.realIndex, swiper.slides.length),
+        slideChange: () =>
+          updatePagination(swiper.realIndex, swiper.slides.length),
       },
     });
 
@@ -124,10 +121,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updatePagination(activeIndex, slideCount) {
-      const [leftDot, centerDot, rightDot] = document.querySelectorAll('.pagination-dot');
+      const [leftDot, centerDot, rightDot] =
+        document.querySelectorAll('.pagination-dot');
       leftDot.classList.toggle('active', activeIndex === 0);
-      centerDot.classList.toggle('active', activeIndex !== 0 && activeIndex !== slideCount - 1);
+
+      leftDot.classList.contains('active')
+        ? swiper.navigation.prevEl.classList.add('btn-disabled')
+        : swiper.navigation.prevEl.classList.remove('btn-disabled');
+
+      centerDot.classList.toggle(
+        'active',
+        activeIndex !== 0 && activeIndex !== slideCount - 1
+      );
+
       rightDot.classList.toggle('active', activeIndex === slideCount - 1);
+
+      rightDot.classList.contains('active')
+        ? swiper.navigation.nextEl.classList.add('btn-disabled')
+        : swiper.navigation.nextEl.classList.remove('btn-disabled');
     }
 
     paginationContainer.addEventListener('click', e => {
@@ -141,13 +152,9 @@ document.addEventListener('DOMContentLoaded', () => {
     updatePagination(swiper.realIndex, feedbacks.length);
   }
 
-  
-  
-    setTimeout(() => {
-      initFeedbackSwiper();
-    }, 200); 
-  
-  
+  setTimeout(() => {
+    initFeedbackSwiper();
+  }, 200);
 
   // Модальне вікно
   const modal = document.querySelector('.modal');
@@ -161,6 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
   btnOpen.addEventListener('click', () => {
     modal.classList.remove('hidden');
     setTimeout(() => {
+      document.body.classList.add('modal-open');
       modal.classList.add('show');
     }, 10);
   });
@@ -190,6 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function closeModal() {
+    document.body.classList.remove('modal-open');
     modal.classList.remove('show');
     setTimeout(() => {
       modal.classList.add('hidden');
@@ -211,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
     inputs.forEach(input => input.classList.remove('error'));
   }
 
-  form.addEventListener('submit', async (e) => {
+  form.addEventListener('submit', async e => {
     e.preventDefault();
 
     const name = form.elements.name.value.trim();
@@ -223,17 +232,28 @@ document.addEventListener('DOMContentLoaded', () => {
       {
         input: form.elements.name,
         errorEl: form.elements.name.nextElementSibling,
-        message: 'Text error',
+        message: 'Should be min 2 - max 10 characters',
       },
       {
         input: form.elements.message,
         errorEl: form.elements.message.nextElementSibling,
-        message: 'Text error',
+        message: 'Should be min 10 - max 512 characters',
       },
     ];
 
     fields.forEach(({ input, errorEl, message }) => {
-      if (!input.value.trim()) {
+      const value = input.value.trim();
+      let isFieldValid = true;
+
+      if (input === form.elements.name) {
+        isFieldValid = value.length >= 2 && value.length <= 10;
+      }
+
+      if (input === form.elements.message) {
+        isFieldValid = value.length >= 10 && value.length <= 512;
+      }
+
+      if (!isFieldValid) {
         input.classList.add('error');
         errorEl.textContent = message;
         errorEl.classList.remove('hidden');
@@ -245,33 +265,70 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    if (!isValid) return;
-
     const feedbackData = {
       name: name,
       rating: currentRating,
       descr: message,
     };
+
+    if (feedbackData.rating < 1) {
+      showWarnMsg();
+      return;
+    }
+
+    if (!isValid) return;
+
     showLoader();
 
     try {
-      const response = await fetch('https://sound-wave.b.goit.study/api/feedbacks', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(feedbackData),
-      });
+      const response = await axios.post(
+        'https://sound-wave.b.goit.study/api/feedbacks',
+        feedbackData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
-      if (!response.ok) throw new Error('Error');
-
-      alert('Thanks for the feedback!');
       closeModal();
+      showSuccessMsg();
+      form.reset();
     } catch (error) {
-      alert('Error sending. Please try again later.');
+      showErrorMsg();
       console.error(error);
     } finally {
       hideLoader();
     }
   });
-})
+});
+
+function showSuccessMsg() {
+  iziToast.success({
+    timeout: 3333,
+    title: 'Nice!',
+    message: `Thanks for the feedback!`,
+    position: 'topRight',
+  });
+}
+
+function showErrorMsg() {
+  iziToast.error({
+    timeout: 3333,
+    title: 'Error!',
+    message: `Error sending. Please try again later.`,
+    position: 'topRight',
+  });
+}
+
+function showWarnMsg() {
+  iziToast.show({
+    timeout: 3333,
+    progressBar: false,
+    target: '.izi',
+    overlay: false,
+    message: `Please rank your feedback.`,
+    position: 'center',
+    buttons: [],
+  });
+}

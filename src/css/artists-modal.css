@@ -393,9 +393,6 @@
 
 @media only screen and (min-width: 768px) {
     .bio-text {
-        margin-left: auto;
-        margin-right: auto;
-
         &::-webkit-scrollbar {
             width: 6px;
         }
@@ -593,7 +590,7 @@
     td:last-child {
         border-radius: 0 8px 8px 0;
     }
-       
+
 }
 
 .album-table-body a {

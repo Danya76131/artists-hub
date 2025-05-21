@@ -1,4 +1,6 @@
 import spriteUrl from '/img/sprite.svg';
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 
 // === api ===
 import axios from 'axios';
@@ -83,7 +85,7 @@ async function handleLoadMoreArtistBtn() {
     paginator.setNewPage();
     const newPage = paginator.getPage();
     if (!paginator.isArtistLeft()) {
-      showErrorMessage('No more artists');
+      showWarn();
       hideArtistLoader();
       hideLoadMoreBtn();
       return;
@@ -462,3 +464,67 @@ function formatDuration(ms) {
   const seconds = totalSeconds % 60;
   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
+function showWarn() {
+  iziToast.show({
+    timeout: 3333,
+    message: `Sorry,no more artists.`,
+    position: 'topLeft',
+  });
+}
+/=================================================/
+// const filterRefs = {
+//   searchInput: document.querySelector('.js-search-input'),
+//   genreSelect: document.querySelector('.js-genre-filter'),
+//   countrySelect: document.querySelector('.js-country-filter'),
+//   artistsListEl: document.querySelector('.js-artists-list'),
+// };
+
+// filterRefs.searchInput.addEventListener('input', handleFiltersChange);
+// filterRefs.genreSelect.addEventListener('change', handleFiltersChange);
+// filterRefs.countrySelect.addEventListener('change', handleFiltersChange);
+
+// async function handleFiltersChange() {
+//   const searchTerm = filterRefs.searchInput.value.toLowerCase().trim();
+//   const selectedGenre = filterRefs.genreSelect.value;
+//   const selectedCountry = filterRefs.countrySelect.value;
+
+//   showArtistLoader();
+
+//   try {
+//     const response = await getArtistsData(1);
+//     if (!response || !response.artists) {
+//       showErrorMessage('No artists found');
+//       return;
+//     }
+
+//     let filteredArtists = response.artists;
+
+//     if (searchTerm) {
+//       filteredArtists = filteredArtists.filter(artist =>
+//         artist.strArtist.toLowerCase().includes(searchTerm)
+//       );
+//     }
+
+//     if (selectedGenre) {
+//       filteredArtists = filteredArtists.filter(artist =>
+//         artist.genres?.some(genre =>
+//           genre.toLowerCase().includes(selectedGenre.toLowerCase())
+//         )
+//       );
+//     }
+
+//     if (selectedCountry) {
+//       filteredArtists = filteredArtists.filter(artist =>
+//         artist.strCountry?.toLowerCase() === selectedCountry.toLowerCase()
+//       );
+//     }
+
+//     filterRefs.artistsListEl.innerHTML = '';
+//     renderArtistList(filteredArtists);
+//   } catch (error) {
+//     console.log(error.message);
+//     showErrorMessage('Something went wrong');
+//   } finally {
+//     hideArtistLoader();
+//   }
+// }

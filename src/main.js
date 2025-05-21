@@ -1,4 +1,5 @@
 import './js/header.js';
+import './js/init-theme.js';
 import './js/hero.js';
 import './js/artists.js';
 import './js/artists-modal.js';

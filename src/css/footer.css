@@ -121,3 +121,21 @@
     }
   }
 }
+
+.footer-nav-link a:hover {
+  text-shadow: 0 0 1px var(--color-neutral-darkest),
+    0 0 1px var(--color-neutral-darkest);
+}
+html.lightmode .footer .icon {
+  --color1: var(--color-affair);
+  --color2: var(--color-affair);
+}
+
+html.lightmode .footer .footer-icon-link:hover .icon {
+  --color1: var(--color-affair-dark);
+  --color2: var(--color-affair-dark);
+}
+html.lightmode .footer-copy-logo-wrapper::after {
+  background-color: var(--color-neutral-darkest);
+  opacity: 0.1;
+}

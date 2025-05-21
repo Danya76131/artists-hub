@@ -1,5 +1,8 @@
 .header {
   background: var(--color-scheme-1-background);
+  position: sticky;
+  top: 0;
+  z-index: 999;
 }
 .header .container {
   padding-right: 12px;
@@ -11,7 +14,7 @@
 .header-logo .icon {
   width: 116px;
   height: 45px;
-  color: var(--color-affair);
+  color: var(--color-scheme-1-text);
 }
 .header-nav-list {
   display: none;
@@ -117,3 +120,22 @@ header .header-mobile-menu.is-open {
   color: var(--color-scheme-1-text);
 }
 /* #endregion mobile-menu */
+
+.header-burger-icon,
+.header-modile-menu-close-icon {
+  fill: var(--color-white);
+}
+
+html.lightmode .header-logo .icon {
+  color: var(--color-affair);
+}
+
+html.lightmode .header-link:hover {
+  text-shadow: 0 0 1px var(--color-neutral-darkest),
+    0 0 1px var(--color-neutral-darkest);
+}
+
+html.lightmode .header-burger-icon,
+html.lightmode .header-modile-menu-close-icon {
+  fill: var(--color-affair);
+}

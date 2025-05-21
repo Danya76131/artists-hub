@@ -3,6 +3,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 import axios from 'axios';
 
 // console.log('feedback block:', document.querySelector('.feedback'));
@@ -41,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const iconId = isFilled ? 'icon-star-filled' : 'icon-star-empty';
 
       stars.push(`
-      <svg class="star-icon" width="20" height="20">
+      <svg class="star-icon" width="20" height="20" fill="currentColor">
         <use href="#${iconId}"></use>
       </svg>
     `);
@@ -133,7 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
         'active',
         activeIndex !== 0 && activeIndex !== slideCount - 1
       );
-
       rightDot.classList.toggle('active', activeIndex === slideCount - 1);
 
       rightDot.classList.contains('active')
@@ -324,11 +324,7 @@ function showErrorMsg() {
 function showWarnMsg() {
   iziToast.show({
     timeout: 3333,
-    progressBar: false,
-    target: '.izi',
-    overlay: false,
     message: `Please rank your feedback.`,
-    position: 'center',
-    buttons: [],
+    position: 'topLeft',
   });
 }

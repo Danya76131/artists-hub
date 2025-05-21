@@ -1,3 +1,4 @@
+
 .hero-title {
     font-family: var(--second-family);
     font-weight: 700;
@@ -36,6 +37,7 @@
 
     .hero-title {
         margin-bottom: 24px;
+        max-width: 624px;
     }
 }
 
@@ -161,6 +163,7 @@
     .hero {
         box-sizing: border-box;
         padding-bottom: 0;
+        padding-top: 18px;
     }
     .hero-content{
         width: 100%;

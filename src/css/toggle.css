@@ -1,0 +1,67 @@
+.header .container {
+  position: relative;
+}
+
+#theme-switch {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%) scale(1);
+  transform-origin: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: var(--color-scheme-1-background);
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-scheme-1-text);
+  transition: transform 0.25s ease, color 0.25s ease, box-shadow 0.25s ease,
+    filter 0.25s ease;
+  z-index: 100;
+}
+@media (max-width: 767px) {
+  #theme-switch {
+    right: 78px;
+  }
+}
+
+#theme-switch:hover {
+  transform: translateY(-50%) scale(1.1);
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.8),
+    0 0 1px rgba(255, 255, 255, 0.8);
+  filter: brightness(1.1);
+}
+
+#theme-switch svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  transition: opacity 0.2s ease;
+}
+#theme-switch svg:first-child {
+  display: block;
+}
+#theme-switch svg:last-child {
+  display: none;
+}
+
+html.lightmode #theme-switch svg:first-child {
+  display: none;
+}
+html.lightmode #theme-switch svg:last-child {
+  display: block;
+}
+
+html.lightmode #theme-switch {
+  color: #ffae00;
+}
+html.lightmode #theme-switch:hover {
+  transform: translateY(-50%) scale(1.1);
+  color: #ff9100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-shadow: none;
+}

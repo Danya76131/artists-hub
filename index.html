@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/artists-hub/assets/fav-icon-BYRurspO.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./js/init-theme.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+      integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <title>Artists Hub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,16 +20,16 @@
       rel="stylesheet"
     />
     <script type="module" crossorigin src="/artists-hub/index.js"></script>
-    <link rel="modulepreload" crossorigin href="/artists-hub/assets/vendor-Cry8ZvOp.js">
-    <link rel="stylesheet" crossorigin href="/artists-hub/assets/vendor-BMD19QWe.css">
-    <link rel="stylesheet" crossorigin href="/artists-hub/assets/index-MmgyA0tR.css">
+    <link rel="modulepreload" crossorigin href="/artists-hub/assets/vendor-D8fuLjwd.js">
+    <link rel="stylesheet" crossorigin href="/artists-hub/assets/vendor-BQMbBNNF.css">
+    <link rel="stylesheet" crossorigin href="/artists-hub/assets/index-CkhkX_So.css">
   </head>
   <body>
     <header class="header" id="header">
   <div class="container">
     <a class="header-logo" href="#">
       <svg class="icon" aria-label="Logo company" width="107" height="30">
-        <use xlink:href="/artists-hub/assets/sprite-DBfis5lY.svg#icon-logo-header"></use>
+        <use xlink:href="/artists-hub/assets/sprite-B3TWM_qx.svg#icon-logo-header"></use>
       </svg>
     </a>
     <ul class="header-nav-list">
@@ -29,11 +37,36 @@
       <li class=""><a href="#about" class="header-link">About us</a></li>
       <li class=""><a href="#feedback" class="header-link">Reviews</a></li>
     </ul>
-
+    <button id="theme-switch" aria-label="switchTheme">
+      <svg
+        class="toggle"
+        xmlns="http://www.w3.org/2000/svg"
+        height="24px"
+        viewBox="0 -960 960 960"
+        width="24px"
+        fill="currentColor"
+      >
+        <path
+          d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z"
+        />
+      </svg>
+      <svg
+        class="toggle"
+        xmlns="http://www.w3.org/2000/svg"
+        height="24px"
+        viewBox="0 -960 960 960"
+        width="24px"
+        fill="currentColor"
+      >
+        <path
+          d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z"
+        />
+      </svg>
+    </button>
     <!-- burger -->
     <button type="button" class="header-burger-btn">
       <svg class="header-burger-icon" width="24" height="24">
-        <use href="/artists-hub/assets/sprite-DBfis5lY.svg#icon-menu"></use>
+        <use href="/artists-hub/assets/sprite-B3TWM_qx.svg#icon-menu"></use>
       </svg>
     </button>
 
@@ -41,13 +74,13 @@
     <div class="header-mobile-menu">
       <div class="mobile-menu-top">
         <a class="header-logo" href="#">
-          <svg class="icon" aria-label="Logo company">
-            <use xlink:href="/artists-hub/assets/sprite-DBfis5lY.svg#icon-logo-header"></use>
+          <svg class="icon" aria-label="Logo company" fill="currentColor">
+            <use xlink:href="/artists-hub/assets/sprite-B3TWM_qx.svg#icon-logo-header"></use>
           </svg>
         </a>
         <button type="button" class="header-mobile-menu-close">
           <svg class="header-modile-menu-close-icon" width="24" height="24">
-            <use href="/artists-hub/assets/sprite-DBfis5lY.svg#icon-x-close"></use>
+            <use href="/artists-hub/assets/sprite-B3TWM_qx.svg#icon-x-close"></use>
           </svg>
         </button>
       </div>
@@ -75,7 +108,7 @@
 
             <a href="#artists" class="hero-button">Explore Artists
                 <svg class="icon" width="24" height="24">
-                    <use href="/artists-hub/assets/sprite-DBfis5lY.svg#right-arrow-hero"></use>
+                    <use href="/artists-hub/assets/sprite-B3TWM_qx.svg#right-arrow-hero"></use>
                 </svg>
             </a>
         </div>
@@ -90,8 +123,8 @@
     <span class="artist-loader loader"></span>
     <button type="button" class="artists-load-more-btn js-load-more-btn">
       Load More
-      <svg class="load-more-svg" width="14" height="14">
-        <use href="/artists-hub/assets/sprite-DBfis5lY.svg#icon-loadmore"></use>
+      <svg class="load-more-svg" width="14" height="14" fill="currentColor">
+        <use href="/artists-hub/assets/sprite-B3TWM_qx.svg#icon-loadmore"></use>
       </svg>
     </button>
   </div>
@@ -127,7 +160,7 @@
     </div>
     <div class="about-us-content-container">
       <svg class="about-us-icon" width="64" height="64">
-        <use href="/artists-hub/assets/sprite-DBfis5lY.svg#icon-logo-about"></use>
+        <use href="/artists-hub/assets/sprite-B3TWM_qx.svg#icon-logo-about"></use>
       </svg>
         <h2 class="about-us-title">About ArtistsHub</h2>
         <p class="about-us-text">
@@ -295,7 +328,7 @@
   <div class="container">
     <a class="footer-logo" href="#header">
       <svg class="icon" aria-label="Logo company">
-        <use xlink:href="/artists-hub/assets/sprite-DBfis5lY.svg#icon-logo-header"></use>
+        <use xlink:href="/artists-hub/assets/sprite-B3TWM_qx.svg#icon-logo-header"></use>
       </svg>
     </a>
     <ul class="footer-nav">
@@ -305,19 +338,31 @@
     </ul>
     <div class="footer-copy-logo-wrapper">
       <div class="footer-icon-wrapper">
-        <a class="footer-icon-link" href="https://www.instagram.com/" target="_blank">
-          <svg class="icon" width="40" height="40">
-            <use xlink:href="/artists-hub/assets/sprite-DBfis5lY.svg#icon-instagram"></use>
+        <a
+          class="footer-icon-link"
+          href="https://www.instagram.com/"
+          target="_blank"
+        >
+          <svg class="icon" width="40" height="40" fill="currentColor">
+            <use xlink:href="/artists-hub/assets/sprite-B3TWM_qx.svg#icon-instagram"></use>
           </svg>
         </a>
-        <a class="footer-icon-link" href="https://www.facebook.com/" target="_blank">
-          <svg class="icon" width="40" height="40">
-            <use xlink:href="/artists-hub/assets/sprite-DBfis5lY.svg#icon-facebook"></use>
+        <a
+          class="footer-icon-link"
+          href="https://www.facebook.com/"
+          target="_blank"
+        >
+          <svg class="icon" width="40" height="40" fill="currentColor">
+            <use xlink:href="/artists-hub/assets/sprite-B3TWM_qx.svg#icon-facebook"></use>
           </svg>
         </a>
-        <a class="footer-icon-link" href="https://www.youtube.com/" target="_blank">
-          <svg class="icon" width="40" height="40">
-            <use xlink:href="/artists-hub/assets/sprite-DBfis5lY.svg#icon-youtube"></use>
+        <a
+          class="footer-icon-link"
+          href="https://www.youtube.com/"
+          target="_blank"
+        >
+          <svg class="icon" width="40" height="40" fill="currentColor">
+            <use xlink:href="/artists-hub/assets/sprite-B3TWM_qx.svg#icon-youtube"></use>
           </svg>
         </a>
       </div>
